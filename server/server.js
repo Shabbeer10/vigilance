@@ -4,8 +4,8 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 
 //loading environment variables
-dotenv.config();
-
+dotenv.config('.env');
+const uri = process.env.MONGO_URI;
 const app = express();
 
 //middleware
@@ -14,9 +14,9 @@ app.use(bodyParser.json());
 
 // Connect to mongoDB
 mongoose
-    .connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true})
+    .connect(uri)
     .then(()=> console.log('MongoDB is connected'))
-    .catch((err) => console.log(err));
+    .catch((err) => console.error('Error connecting to MongoDB',err));
 
 // Routes
 import logRoutes from './routes/logRoutes.js';
@@ -28,7 +28,7 @@ app.use('/api', apiRoutes);
 
 // basic root endpoint
 app.get('/', (req,res) => {
-    res.send("Welcome to My Basic SIEM")
+    res.send("Welcome to Vigilance - A simple SIEM tool")
 });
 
 // Start server

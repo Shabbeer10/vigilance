@@ -1,6 +1,6 @@
 import express from 'express';
 import Log from '../models/Log.js';
-import Alert from '../models/Alerts.js';
+import Alert from '../models/Alert.js';
 
 const router = express.Router();
 

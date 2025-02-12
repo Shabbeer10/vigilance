@@ -1,7 +1,7 @@
 
 import express from 'express';
 import Log from '../models/Log.js';
-//import {processLog} from '../services/ruleEngine.js';
+import {processLog} from '../services/ruleEngine.js';
 
 const router = express.Router();
 
@@ -12,7 +12,7 @@ router.post('/ingest', async (req,res) => {
         const log = new Log(logData);
         await log.save();
 
-        // await processLog(log);
+        await processLog(log);
     } catch (error) {
         res.status(500).json({error: error.message});
     }
